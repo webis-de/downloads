@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Function</title>
+
+    <script>
+      function Quadrat() {
+      var Zahl = document.QuadratForm.Eingabe.value;
+      var Ergebnis = Zahl * Zahl;
+      alert ("Das Quadrat von " + Zahl + " = " + Ergebnis);
+      }
+    </script>
+  </head>
+
+
+  <body>
+
+    <form name="QuadratForm" action="">
+      <input type="text" name="Eingabe" size="3">
+      <input type="button" value="Quadrat errechnen" onClick="Quadrat()">
+    </form>
+
+    <script>
+/*
+      document.writeln(document.QuadratForm + "<br/>");
+      document.writeln(document.getElementsByTagName("form") + "<br/>");
+      document.writeln(document.getElementsByTagName("form")[0] + "<br/>");
+
+      document.writeln(document.QuadratForm.Eingabe + "<br/>")
+      document.writeln(document.QuadratForm.Eingabe.value + "<br/>")
+*/
+    </script>
+
+  </body>
+</html>
+

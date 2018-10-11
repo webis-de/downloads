@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xsd:complexType name="Name">
+		<xsd:sequence>
+			<xsd:element name="vorname" type="xsd:string" />
+			<xsd:element name="nachname" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PersonType">
+		<xsd:sequence>
+			<xsd:element name="name" type="Name" />
+			<xsd:element name="geburtstag" type="xsd:string" />
+			<xsd:element name="beruf" type="xsd:string" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PersonenType">
+		<xsd:sequence>
+			<xsd:element name="person" type="PersonType" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="personen" type="PersonenType" />
+</xsd:schema>

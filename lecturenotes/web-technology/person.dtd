@@ -1,0 +1,7 @@
+<!ELEMENT person (name,geburtstag,beruf+)>
+<!ELEMENT name (vorname,nachname)>
+<!ELEMENT beruf (#PCDATA)>
+<!ELEMENT geburtstag (#PCDATA)>
+<!ELEMENT vorname (#PCDATA)>
+<!ELEMENT nachname (#PCDATA)>
+

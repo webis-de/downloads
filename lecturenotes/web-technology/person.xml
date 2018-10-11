@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE person SYSTEM "person.dtd">
+<?xml-stylesheet type="text/xsl" href="small.xsl"?>
+
+<person>
+  <name>
+    <vorname>Alan</vorname>
+    <nachname>Turing</nachname>
+  </name>
+  <geburtstag>23. Juni 1912</geburtstag>
+  <beruf>Mathematiker</beruf>
+  <beruf>Informatiker</beruf>
+</person>
+
+

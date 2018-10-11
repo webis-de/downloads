@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="no" ?>
+
+
+<!DOCTYPE personen [
+<!ELEMENT personen (person*)>
+<!ELEMENT person (name,geburtstag,beruf+)>
+<!ELEMENT name (vorname,nachname)>
+<!ELEMENT beruf (#PCDATA)>
+<!ELEMENT geburtstag (#PCDATA)>
+<!ELEMENT vorname (#PCDATA)>
+<!ELEMENT nachname (#PCDATA)>
+]>
+
+
+<?xml-stylesheet type="text/css" href="personen.css"?>
+<?xml-stylesheet type="text/xsl" href="personen2html4a.xsl"?>
+<?xml-stylesheet type="text/xsl" href="personen2html4b.xsl"?>
+<?xml-stylesheet type="text/xsl" href="personen2html5a.xsl"?>
+<?xml-stylesheet type="text/xsl" href="personen2html5b.xsl"?>
+<?xml-stylesheet type="text/xsl" href="personen-change-birthday.xsl"?>
+
+
+<personen>
+
+<person>
+  <name>
+    <vorname>Alan</vorname> 
+    <nachname>Turing</nachname>
+  </name>
+  <geburtstag>23. Juni 1912</geburtstag>
+  <beruf>Mathematiker</beruf>
+  <beruf>Informatiker</beruf>
+</person>
+
+<person>
+  <name>
+    <vorname>Judea</vorname>
+    <nachname>Pearl</nachname>
+  </name>
+  <geburtstag>unknown</geburtstag>
+  <beruf>Informatiker</beruf>
+</person>
+
+</personen>
+
+

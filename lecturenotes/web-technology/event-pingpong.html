@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+
+<html>
+  <head>
+    <title>Event</title>
+  </head>
+
+  <body>
+
+    <form name="testForm">
+      <input type="button" value="ping" onclick='alert("ping!");'>
+      <input type="button" name="Knopf" value="pong">
+    </form>
+
+    <script>
+      document.testForm.Knopf.onclick= function(){alert("pong!")};
+    </script>
+
+  </body>
+</html>
+
