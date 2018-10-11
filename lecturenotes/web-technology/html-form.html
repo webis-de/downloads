@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>html-form</title>
+  </head>
+  <body>
+    <form name="Webis" action="mailto:benno.stein@uni-weimar.de" method="post" enctype="text/plain">
+      <fieldset>
+        <legend>Formular 1</legend>
+        <label><input type="radio" name="x" value="1"> Radio-Text 1 </label>
+        <label><input type="radio" name="x" value="2" checked="checked"> Radio-Text 2 </label>
+        <input type="submit" name="z" value="Email schreiben">
+      </fieldset>
+    </form>
+
+    <form action="http://webis16.medien.uni-weimar.de/cgi-bin/cgi-sample1.cgi">
+      <fieldset>
+        <legend>Formular 2</legend>
+        <label for="field1">Vorname:</label>
+        <input id="field1" name="vorname" type="text" value="Stefan">
+        <label for="field2">Nachname:</label>
+        <input id="field2" name="nachname" type="text" placeholder="Nachnamen eingeben">
+        <input type="submit" name="z" value="Daten schicken">
+      </fieldset>
+    </form>
+  </body>
+</html>
