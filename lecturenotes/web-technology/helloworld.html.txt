@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Helloworld</title>
+    <title>Static Sample</title>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1>Hello World!</h1>
 </body>
 </html>
