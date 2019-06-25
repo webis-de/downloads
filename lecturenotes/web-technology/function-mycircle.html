@@ -5,14 +5,16 @@
     <title>Function</title>
 
     <script>
-      function mycircle(r) {
-      this.radius = r;
-      this.area = getArea;
-      this.circ = function() {return (Math.PI * this.radius * 2);};
-      }
-
-      function getArea() {
-      return ( Math.PI * this.radius * this.radius );
+      class MyCircle {
+        constructor(r) {
+          this.radius = r;
+          this.circ = function() {
+            return (Math.PI * this.radius * 2); };
+        }
+        
+        area() {
+          return (Math.PI * this.radius * this.radius);
+        }
       }
     </script>
   </head>
@@ -20,7 +22,7 @@
 
   <body>
     <script>
-      c = new mycircle(3);
+      c = new MyCircle(3);
 
       document.writeln("Radius = " + c.radius);
       document.writeln("<br/>");
