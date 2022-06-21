@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+### Training a multiple-hidden-layer MLP in Python
+# In order to run this script, Python 3 and Numpy must be installed.
+# See: https://numpy.org/install/
+
+#%%#####################################################################
+import numpy as np
+
+### The XOR example dataset.
+# note the prepended constant 1s 
+xs = np.array([
+    [1, 0, 0],
+    [1, 0, 1],
+    [1, 1, 0],
+    [1, 1, 1]
+])
+cs = [0, 1, 1, 0]
+
+### Initialization
+def initialize_random_weights(sizes):
+    """Initialize the weight matrices of an MLP.
+
+    Args:
+        sizes (list[int]): number of units in all network layers
+
+    Returns:
+        W_h (list[ndarray]): list of matrices
+    """
+    W_h = [[]] # the first element is empty, so that we'll count from 1
+    for i in range(1, len(sizes)):
+        l_s = sizes[i]
+        l_prev = sizes[i-1]
+        W_h_s = np.random.normal(size=(l_s, l_prev+1))
+        W_h.append(W_h_s)
+    return W_h
+
+
+### Threshold function
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+
+### Function for printing weights and predictions
+def print_weights_and_predictions(W_h):
+    y_h = xs.T
+
+    for s in range(1, len(W_h)):
+        W_h_s = W_h[s]
+        print(f"W_{s}{W_h_s.shape} = {W_h_s.round(2)}")
+
+        y_h = sigmoid(W_h_s @ y_h)
+        y_h = np.vstack([np.ones(y_h.shape[1]), y_h])
+
+    y = y_h[1:]
+
+    print(f"Predictions: {y.flatten().round(2)}")
+    print(f"      Truth: {cs}")
+
+
+########################################################################
+### IGD Algorithm.
+## (the corresponding line numbers from the pseudocode are noted below)
+
+tmax = 4000   # number of epochs
+eta = 0.1  # learning rate
+
+## (1) Initialization
+# Note: the number of units in the middle layers can be changed to arbitrary
+# values here, but the first and last must match the training dataset used.
+# The number of items in the layer-size list must be at least 2.
+
+np.random.seed(1)
+
+W_h = initialize_random_weights([2, 3, 4, 1])
+d = len(W_h) - 1
+
+# lists for storing intermediate activations / deltas / updates
+y_h = [None for s in range(d+1)]
+delta_h = [None for s in range(d+1)]
+delta_W_h = [None for s in range(d+1)]
+
+
+print("Initialized network:")
+print_weights_and_predictions(W_h)
+
+
+## (2) Outer loop (over epochs)
+for t in range(tmax):
+    ## (4) Inner loop (over training examples)
+    for x, cx in zip(xs, cs):
+        # (x as a column vector)
+        x = np.reshape(x, (len(x), 1))
+
+        ## (5) forward propagation
+        # we store all hidden activations in a list, x first
+        y_h[0] = x
+        for s in range(1, d+1):
+            y_h[s] = np.vstack([1, sigmoid(W_h[s] @ y_h[s-1])])
+        y = y_h[d][1:]
+
+        ## (6) backpropagation
+        # we store all delta_h_s in a list, delta_h_d last
+        delta_h[d] = (cx - y) * y * (1 - y)
+        for s in range(d-1, 0, -1):
+            delta_h[s] = ((W_h[s+1].T @ delta_h[s+1]) * y_h[s] * (1 - y_h[s]))[1:]
+
+        ## (7) weight update
+        # note: with the dyadic product operator ⊗ as written in the pseudocode,
+        # the transpose of the second operand is implicit. Numpy uses the same
+        # @-operator for dyadic products as for matrix multiplications, so we
+        # have to transpose explicitly.
+        delta_W_h[1] = eta * (delta_h[1] @ x.T)
+        for s in range(2, d+1):
+            delta_W_h[s] = eta * (delta_h[s] @ y_h[s-1].T)
+
+        ## (8) weight update (cont'd)
+        for s in range(1, d+1):
+            W_h[s] += delta_W_h[s]
+
+########################################################################
+### Show results of training.
+
+print(50*'*')
+print(f"After {tmax} epochs:")
+print_weights_and_predictions(W_h)
+

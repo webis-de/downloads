@@ -1,0 +1,11 @@
+<?xml version="1.0" standalone="no" ?>
+<person>
+  <name>
+    <vorname>Judea</vorname>
+    <nachname>Pearl</nachname>
+  </name>
+  <geburtstag>10.10.1949</geburtstag>
+  <beruf>Informatiker</beruf>
+</person>
+
+

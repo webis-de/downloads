@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Function</title>
+
+    <script>
+      class MyCircle {
+        constructor(r) {
+          this.radius = r;
+          this.circ = function() {
+            return (Math.PI * this.radius * 2); };
+        }
+        
+        area() {
+          return (Math.PI * this.radius * this.radius);
+        }
+      }
+    </script>
+  </head>
+
+
+  <body>
+    <script>
+      c = new MyCircle(3);
+
+      document.writeln("Radius = " + c.radius);
+      document.writeln("<br/>");
+      document.writeln("Area = " + c.area());
+      document.writeln("<br/>");
+      document.writeln("Circumference = " + c.circ());
+
+      document.writeln("<br/>");
+      document.writeln("<br/>");
+
+      document.writeln("Area = " + c.area);
+      document.writeln("<br/>");
+      document.writeln("Circumference = " + c.circ);
+  </script>
+
+  </body>
+</html>
+

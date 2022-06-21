@@ -1,0 +1,66 @@
+from dataclasses import dataclass, field
+from typing import List, Optional
+
+
+@dataclass
+class NameType:
+    vorname: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "",
+            "required": True,
+        }
+    )
+    nachname: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "",
+            "required": True,
+        }
+    )
+
+
+@dataclass
+class PersonType:
+    name: Optional[NameType] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "",
+            "required": True,
+        }
+    )
+    geburtstag: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "",
+            "required": True,
+        }
+    )
+    beruf: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "",
+        }
+    )
+
+
+@dataclass
+class PersonenType:
+    person: List[PersonType] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "",
+        }
+    )
+
+
+@dataclass
+class Personen(PersonenType):
+    class Meta:
+        name = "personen"

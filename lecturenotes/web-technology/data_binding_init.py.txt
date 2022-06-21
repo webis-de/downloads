@@ -1,0 +1,13 @@
+from generated.personen import (
+    NameType,
+    PersonType,
+    PersonenType,
+    Personen,
+)
+
+__all__ = [
+    "NameType",
+    "PersonType",
+    "PersonenType",
+    "Personen",
+]

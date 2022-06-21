@@ -1,0 +1,22 @@
+body {
+  font-family: Helvetica, sans-serif;
+  font-size: small;
+  font-weight: normal;
+  margin: 5% 10%;
+}
+
+
+name {
+  font-size: normal;
+  font-weight: bold;
+}
+
+
+vorname {
+  font-size: large;
+  color: red;
+}
+
+div {
+		color:green
+}

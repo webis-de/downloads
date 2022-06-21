@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="utf-8">
+    <title>Regex</title>
+</head>
+
+
+<body>
+  
+<?php
+  $pattern = '/d[a-z]f/';
+  // $pattern = '/d[a-z]*f/';
+  // $pattern = '/d[a-z]*f/U';
+
+  $string = "defabcdef";
+  $num = preg_match_all($pattern, $string, $matches, PREG_OFFSET_CAPTURE);
+
+  echo "Pattern: ", $pattern, "<br/>";
+  echo "String: ", $string, "<br/>";
+  echo "Result: ", $num, "<br/>";
+?>
+
+<pre>
+  <?php print_r($matches); ?>
+</pre>
+
+</body>
+</html>
