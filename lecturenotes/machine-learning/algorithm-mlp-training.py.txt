@@ -70,19 +70,22 @@ print_weights_and_predictions(W_h, W_o)
 ## (2) Outer loop (over epochs)
 for t in range(tmax):
     ## (4) Inner loop (over training examples)
-    for x, cx in zip(xs, cs):
+    for x, c in zip(xs, cs):
         # (x as a column vector)
         x = np.reshape(x, (len(x), 1))
 
-        ## (5) forward propagation
+        ## (5) Forward propagation
         y_h = np.vstack([1, sigmoid(W_h @ x)])
         y = sigmoid(W_o @ y_h)
 
-        ## (6) backpropagation
-        delta_o = (cx - y) * y * (1 - y)
+        ## (6) Calculation of residual vector
+        delta = c - y
+
+        ## (7a) Backpropagation
+        delta_o = delta * y * (1 - y)
         delta_h = ((W_o.T @ delta_o) * y_h * (1 - y_h))[1:]
 
-        ## (7) weight update
+        ## (7b) Weight update
         # note: with the dyadic product operator ⊗ as written in the pseudocode,
         # the transpose of the second operand is implicit. Numpy uses the same
         # @-operator for dyadic products as for matrix multiplications, so we
@@ -90,7 +93,7 @@ for t in range(tmax):
         delta_W_h = eta * (delta_h @ x.T)
         delta_W_o = eta * (delta_o @ y_h.T)
 
-        ## (8) weight update (cont'd)
+        ## (8) Weight update (cont'd)
         W_h += delta_W_h
         W_o += delta_W_o
 
