@@ -75,9 +75,9 @@ W_h = initialize_random_weights([2, 3, 4, 1])
 d = len(W_h) - 1
 
 # lists for storing intermediate activations / deltas / updates
-y_h = [None for s in range(d+1)]
-delta_h = [None for s in range(d+1)]
-delta_W_h = [None for s in range(d+1)]
+y_h : 'list[np.ndarray]' = [np.empty(0) for s in range(d+1)]
+delta_h = [np.empty(0) for s in range(d+1)]
+delta_W_h = [np.empty(0) for s in range(d+1)]
 
 
 print("Initialized network:")
@@ -87,24 +87,27 @@ print_weights_and_predictions(W_h)
 ## (2) Outer loop (over epochs)
 for t in range(tmax):
     ## (4) Inner loop (over training examples)
-    for x, cx in zip(xs, cs):
+    for x, c in zip(xs, cs):
         # (x as a column vector)
         x = np.reshape(x, (len(x), 1))
 
-        ## (5) forward propagation
+        ## (5) Forward propagation
         # we store all hidden activations in a list, x first
         y_h[0] = x
         for s in range(1, d+1):
             y_h[s] = np.vstack([1, sigmoid(W_h[s] @ y_h[s-1])])
         y = y_h[d][1:]
 
-        ## (6) backpropagation
+        ## (6) Calculation of residual vector
+        delta = c - y
+
+        ## (7a) Backpropagation
         # we store all delta_h_s in a list, delta_h_d last
-        delta_h[d] = (cx - y) * y * (1 - y)
+        delta_h[d] = delta * y * (1 - y)
         for s in range(d-1, 0, -1):
             delta_h[s] = ((W_h[s+1].T @ delta_h[s+1]) * y_h[s] * (1 - y_h[s]))[1:]
 
-        ## (7) weight update
+        ## (7b) Weight update
         # note: with the dyadic product operator ⊗ as written in the pseudocode,
         # the transpose of the second operand is implicit. Numpy uses the same
         # @-operator for dyadic products as for matrix multiplications, so we
@@ -113,7 +116,7 @@ for t in range(tmax):
         for s in range(2, d+1):
             delta_W_h[s] = eta * (delta_h[s] @ y_h[s-1].T)
 
-        ## (8) weight update (cont'd)
+        ## (8) Weight update (cont'd)
         for s in range(1, d+1):
             W_h[s] += delta_W_h[s]
 
