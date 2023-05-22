@@ -1,4 +1,4 @@
-name: Lecturenotes Modification Dates
+name: lecturenotes-dates
 
 on: [push]
 
@@ -42,4 +42,3 @@ jobs:
         sed -i '$ s/,$/}/' ./lecturenotes/file_mod_dates.json
 
         echo "lecturenotes/file_mod_dates.json has been created in the root directory of the repository."
-        EOF
