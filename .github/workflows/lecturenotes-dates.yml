@@ -1,0 +1,45 @@
+name: Lecturenotes Modification Dates
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install jsonlines
+
+    - name: Get modification dates and create JSON
+      run: |
+        #!/bin/bash
+        echo "Processing files..."
+        echo "{" >./lecturenotes/file_mod_dates.json
+
+        # Fetch all PDF files in the 'lecturenotes' subdirectory
+        for file in $(find ./lecturenotes -name "*.pdf" -type f); do
+          # Check if file is tracked by git
+          if git ls-files --error-unmatch $file >/dev/null 2>&1; then
+            # Fetch file's last modification date using `git log` command
+            mod_date=$(git log -1 --format="%ai" -- $file)
+
+            # Append the folder's path, file's name and its modification date to the JSON file
+            echo "  \"${file:2}\": \"$mod_date\"," >>./lecturenotes/file_mod_dates.json
+          fi
+        done
+
+        # Replace the trailing comma of the last element with a closing brace
+        sed -i '$ s/,$/}/' ./lecturenotes/file_mod_dates.json
+
+        echo "lecturenotes/file_mod_dates.json has been created in the root directory of the repository."
+        EOF
