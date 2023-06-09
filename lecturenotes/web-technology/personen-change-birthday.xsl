@@ -10,7 +10,7 @@
 
 <!-- Exception to the copying. -->
 <xsl:template match="person[name/nachname='Pearl' and name/vorname='Judea']/geburtstag/text()">
-<xsl:text>10.10.1949</xsl:text>
+<xsl:text>04.09.1936</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>
