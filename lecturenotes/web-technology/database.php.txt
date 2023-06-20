@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='de'>
+<head>
+    <meta charset='utf-8'>
+    <title>Database</title>
+</head>
+<body>
+<?php
+$searchstring = trim($_REQUEST['searchstring']);
+if ($searchstring == '') {
+    echo '<h1>Fehler!</h1><strong>Sie m&uuml;ssen einen Nachnamen eingeben.</strong>';
+} else {
+    try {
+        $link = new PDO('sqlite:database.sqlite3');
+    } catch (PDOException $exception) {
+        die('Could not connect: ' . $exception->getMessage());
+    }
+
+    $query = 'SELECT lastname, firstname, phone FROM addresses WHERE lastname LIKE ? ORDER BY lastname, firstname';
+    $statement = $link->prepare($query);
+    if (!$statement->execute(['%' . $searchstring . '%'])) {
+        die('Query failed: ' . $link->errorInfo()[2]);
+    }
+
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    echo '<h1>Ergebnisse</h1>';
+
+    // Pruefen ob Ergebnisse gefunden
+    if (!$results) {
+        echo 'Kein Kunde mit Namen "' . $searchstring . '"" vorhanden.';
+    } else {
+        echo 'Suchergebnisse f&uuml;r "' . htmlspecialchars($searchstring) . '":<br>';
+        echo '<ol>';
+        foreach ($results as $row) {
+            echo '<li>';
+            echo $row['lastname'] . ', ';
+            echo $row['firstname'] . ': ';
+            echo $row['phone'];
+            echo '</li>';
+        }
+        echo '</ol>';
+    }
+
+    $link = null; // Verbindung beenden
+}
+?>
+</body>
+</html>
