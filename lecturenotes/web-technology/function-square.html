@@ -5,10 +5,10 @@
     <title>Function</title>
 
     <script>
-      function Quadrat() {
-        let Zahl = document.QuadratForm.Eingabe.value;
-        let Ergebnis = Zahl * Zahl;
-        alert ("Das Quadrat von " + Zahl + " = " + Ergebnis);
+      function quadrat() {
+        let zahl = document.quadratForm.eingabe.value;
+        let ergebnis = zahl * zahl;
+        alert ("Das Quadrat von " + zahl + " = " + ergebnis);
       }
     </script>
   </head>
@@ -16,9 +16,9 @@
 
   <body>
 
-    <form name="QuadratForm" action="">
-      <input type="text" name="Eingabe" size="3">
-      <input type="button" value="Quadrat errechnen" onclick="Quadrat()">
+    <form name="quadratForm" action="">
+      <input type="text" name="eingabe" size="3">
+      <input type="button" value="Quadrat errechnen" onClick="quadrat()">
     </form>
 
     <script>
