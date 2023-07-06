@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Ajax Example</title>
+  <style>
+    #nameCheck.available { background-color: green; }
+    #nameCheck.unavailable { background-color: red; }
+  </style>
+</head>
+<body>
+  <form action="">
+    <label for="username">Preferred user name:</label>
+    <input id="username" name="username" type="text"/>
+    <span id="nameCheck" class="available"> &nbsp;&nbsp;&nbsp; </span>
+  </form>
+
+  <script type="text/javascript">
+    let query = document.getElementById("username")
+    query.addEventListener("keyup",
+            function () {
+              genericEventHandler(
+                      "./check-username.php?q=" + query.value, // URL of server function.
+                      processUsernameResponse) // Reference to function object.
+            })
+
+    function genericEventHandler(url, processResponseXML) {
+      let req = new XMLHttpRequest();
+
+      if(req) {
+        req.addEventListener(          // Register callback function that is
+                "readystatechange",    // called on readystatechange of url.
+          function() {                 // Create anonymous callback function.
+            if(req.readyState === 4) { // Check if readyState is DONE.
+              if(req.status === 200) { // Check if server response is OK.
+                processResponseXML(req.responseXML);
+              } else { alert("HTTP error: " + req.status); }
+            }
+        })
+
+        req.open("GET", url, true);    // Dispatch request.
+        req.send(null);                // Send (asynchronously) HTTP request.
+      }
+    }
+
+    function processUsernameResponse(xmltree) {
+      let result = xmltree.documentElement
+              .getElementsByTagName("result")[0].firstChild.data;
+      let message = document.getElementById("nameCheck");
+
+      if(result === 1) { // Update the DOM regarding the database result.
+        message.className = "unavailable";
+      } else {
+        message.className = "available";
+      }
+    }
+  </script>
+</body>
+</html>
+

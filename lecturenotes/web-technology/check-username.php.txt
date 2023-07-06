@@ -1,0 +1,25 @@
+<?php
+header('Content-Type: text/xml');
+echo '<?xml version="1.0" encoding="utf-8" standalone="yes"?>';
+
+function nameInUse($q) {
+  if (isset($q)){
+    switch(strtolower($q)) {
+        case 'alice' :
+        case 'bob':
+        case 'fred':
+        case 'mary':
+        case 'peter':
+          return '1';
+        default:
+          return '0';
+    }
+  }else{ return '0'; }
+}
+?>
+
+
+<response>
+  <result> <?php echo nameInUse($_GET['q']) ?> </result>
+</response>
+
